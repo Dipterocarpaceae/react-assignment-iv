@@ -6,11 +6,15 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import useFetch from "./useFetch";
-import { useEffect } from "react";
+import Alert from "@mui/material/Alert";
+import Button from "@mui/material/Button";
+import { RootContext } from "./App";
+import { useEffect, useContext } from "react";
 
 const User = (props) => {
   const [data] = useFetch(props.urlEnd);
-
+  const { countClick, setCountClick } = useContext(RootContext);
+  const clickHandler = () => setCountClick(countClick - 1);
   console.log("Post called");
 
   // Only to console log mount or unmount
@@ -45,6 +49,10 @@ const User = (props) => {
             ))}
         </TableBody>
       </Table>
+      <Alert sx={{ marginY: "15px" }} severity="info">
+        Count Click: {countClick}
+      </Alert>
+      <Button variant="contained" onClick={clickHandler}>Post Button</Button>
     </TableContainer>
   );
 };

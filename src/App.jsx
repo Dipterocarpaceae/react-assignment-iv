@@ -1,13 +1,16 @@
-import { useEffect, createContext, useState } from "react";
+import React, { createContext, useEffect, useState, useMemo } from "react";
 import User from "./User";
 import Post from "./Post";
-import GlobalProvider from "./context";
-export const RootContext = createContext();
-
+export const RootContext = createContext({
+  countClick: 0,
+  setCountClick: () => {},
+});
 function App() {
   const [userURL, setUserURL] = useState("users");
   const [postURL, setPostURL] = useState("posts");
-  
+
+  const [countClick, setCountClick] = useState(0);
+  const value = useMemo(() => ({ countClick, setCountClick }), [countClick]);
   const [toggle, setToggle] = useState(false);
   
   console.log("App called");
@@ -29,6 +32,7 @@ function App() {
 
 
   return (
+    <RootContext.Provider value={value}>
       <div>
         <Post urlEnd={postURL} />
         <User urlEnd={userURL} />
@@ -37,7 +41,8 @@ function App() {
           <button onClick={handleUserRequest}>Toggle</button>
         </div>
       </div>
+    </RootContext.Provider>
   );
 }
 
-export default GlobalProvider(App);
+export default App;

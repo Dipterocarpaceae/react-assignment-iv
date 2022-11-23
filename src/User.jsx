@@ -8,11 +8,13 @@ import Paper from "@mui/material/Paper";
 import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import useFetch from "./useFetch";
-import { useEffect } from "react";
-import { RootContext } from "./context";
+import { useEffect, useContext } from "react";
+import { RootContext } from "./App";
 
-const User = (props) => {
+function User(props) {
   const [data] = useFetch(props.urlEnd);
+  const { countClick, setCountClick } = useContext(RootContext);
+  const clickHandler = () => setCountClick(countClick + 1);
   console.log("User called");
 
     // Only to console log mount or unmount
@@ -24,10 +26,6 @@ const User = (props) => {
     }, []);
 
   return (
-          <RootContext.Consumer>
-            {
-              value => {
-                return (
                 <TableContainer component={Paper} sx={{ marginTop: 5 }}>
                   <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
@@ -57,15 +55,11 @@ const User = (props) => {
                         ))}
                     </TableBody>
                   </Table>
-                  <Alert variant="filled" severity="warning">
-                    User: {value}
+                  <Alert sx={{ marginY: "15px" }} severity="info">
+                    Count Click: {countClick}
                   </Alert>
-                  <Button variant="contained">Click me</Button>
+                  <Button variant="contained" onClick={clickHandler}>User Button</Button>
                 </TableContainer>
-                )
-              }
-            }
-          </RootContext.Consumer>
             
           
   );

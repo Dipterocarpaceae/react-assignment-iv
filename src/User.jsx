@@ -13,8 +13,8 @@ import { RootContext } from "./App";
 
 function User(props) {
   const [data] = useFetch(props.urlEnd);
-  const { countClick, setCountClick } = useContext(RootContext);
-  const clickHandler = () => setCountClick(countClick + 1);
+  const { alert, setAlert } = useContext(RootContext);
+  const clickHandler = () => setAlert(<Alert variant="filled" sx={{ marginY: "15px" }} severity="info">User Button Clicked</Alert>);
   console.log("User called");
 
     // Only to console log mount or unmount
@@ -55,9 +55,7 @@ function User(props) {
                         ))}
                     </TableBody>
                   </Table>
-                  <Alert sx={{ marginY: "15px" }} severity="info">
-                    Count Click: {countClick}
-                  </Alert>
+                  {alert}
                   <Button variant="contained" onClick={clickHandler}>User Button</Button>
                 </TableContainer>
             

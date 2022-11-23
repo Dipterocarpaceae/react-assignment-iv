@@ -13,8 +13,8 @@ import { useEffect, useContext } from "react";
 
 const User = (props) => {
   const [data] = useFetch(props.urlEnd);
-  const { countClick, setCountClick } = useContext(RootContext);
-  const clickHandler = () => setCountClick(countClick - 1);
+  const { alert, setAlert } = useContext(RootContext);
+  const clickHandler = () => setAlert(<Alert variant="filled" sx={{ marginY: "15px" }} severity="warning">Post Button Clicked</Alert>);
   console.log("Post called");
 
   // Only to console log mount or unmount
@@ -49,9 +49,7 @@ const User = (props) => {
             ))}
         </TableBody>
       </Table>
-      <Alert sx={{ marginY: "15px" }} severity="info">
-        Count Click: {countClick}
-      </Alert>
+        {alert}
       <Button variant="contained" onClick={clickHandler}>Post Button</Button>
     </TableContainer>
   );

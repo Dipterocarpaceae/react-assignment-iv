@@ -11,7 +11,7 @@ const useFetch = (url) => {
       console.log("useEffect HTTP Fetch called");
       try {
         const response = await fetch(
-          "https://jsonplaceholder.typicode.com" + url
+          `https://jsonplaceholder.typicode.com/${url}`
         );
         const data = await response.json();
         setData(data.splice(0, 5));
